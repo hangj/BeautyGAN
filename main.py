@@ -8,6 +8,14 @@ from imageio import imread, imsave
 import cv2
 import argparse
 
+#设置使用的gpu
+#os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+#config = tf.ConfigProto()
+#config.gpu_options.allow_growth = True
+#占用GPU40%
+#config.gpu_options.per_process_gpu_memory_fraction = 0.4
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--no_makeup', type=str, default=os.path.join('imgs', 'no_makeup', 'xfsy_0068.png'), help='path to the no_makeup image')
 args = parser.parse_args()
@@ -27,6 +35,8 @@ result = np.ones((2 * img_size, (len(makeups) + 1) * img_size, 3))
 result[img_size: 2 *  img_size, :img_size] = no_makeup / 255.
 
 tf.reset_default_graph()
+
+#sess = tf.Session(config=config)
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 
