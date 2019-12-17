@@ -88,8 +88,11 @@ for no_makeup in tq:
     #result[:, img_size:2 * img_size] = Xs_[0]
     result=Xs_[0]
     #print(target_file_path)
-    result = result.astype(np.int8)
-    imsave(target_file_path, result)
+    #result = result.astype(np.int8)
+    try:
+        imsave(target_file_path, result)
+    except Exception as e:
+        pass
 
 
 sess.close()
