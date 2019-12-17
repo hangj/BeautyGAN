@@ -87,9 +87,14 @@ for no_makeup in tq:
     Xs_ = deprocess(Xs_)
     #result[:, img_size:2 * img_size] = Xs_[0]
     result=Xs_[0]
+    #print(result.shape)
+    #print(result)
     #print(target_file_path)
-    result = result.astype(np.uint8)
-
+    #result = result*255
+    #因为result.dtype=float32
+    result = cv2.normalize(result, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
+    #result = result.astype(np.uint8)
+    #print(result)
     imsave(target_file_path, result)
 
 
