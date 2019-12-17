@@ -33,14 +33,14 @@ batch_size = 1
 img_size = 256
 
 #所有上装的图片
-makeups = glob.glob(os.path.join('imgs', 'makeup', '*.*'))
-makeups.sort()
-print(makeups)
+#makeups = glob.glob(os.path.join('imgs', 'makeup', '*.*'))
+#makeups.sort()
+#print(makeups)
 
 #查找待上装图片
-all_no_makeups = glob.glob(os.path.join(args.src_dir,'*.png'))
+all_no_makeups = glob.glob(os.path.join(args.src_dir,'*.*'))
 
-print("---",all_no_makeups)
+print("---"*50,len(all_no_makeups))
 
 #for x in all_no_makeups:
 #    print(x)
