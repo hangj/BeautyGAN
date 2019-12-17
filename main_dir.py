@@ -7,6 +7,7 @@ import glob
 from imageio import imread, imsave
 import cv2
 import argparse
+from tqdm import tqdm
 
 #设置使用的gpu
 #os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
@@ -40,7 +41,8 @@ img_size = 256
 #查找待上装图片
 all_no_makeups = glob.glob(os.path.join(args.src_dir,'*.*'))
 
-print("---"*50,len(all_no_makeups))
+all_img_len=len(all_no_makeups)
+print("---"*50,all_img_len)
 
 #for x in all_no_makeups:
 #    print(x)
@@ -71,20 +73,23 @@ Xs = graph.get_tensor_by_name('generator/xs:0')
 #makeup = cv2.resize(imread(makeups[args.makeup_num]), (img_size, img_size))
 
 makeup = cv2.resize(imread(os.path.join('img_0.jpg')), (img_size, img_size))
-
-for no_makeup in all_no_makeups:
+tq=tqdm(all_no_makeups)
+for no_makeup in tq:
+    #print(no_makeup)
+    #continue
     target_file_path = os.path.join(args.target_dir, os.path.split(no_makeup)[-1])
     no_makeup = cv2.resize(imread(no_makeup), (img_size, img_size))
     X_img = np.expand_dims(preprocess(no_makeup), 0)
     result = np.ones((img_size,img_size,3))
-
-    print(result.shape)
-
+    #print(result.shape)
     Y_img = np.expand_dims(preprocess(makeup), 0)
     Xs_ = sess.run(Xs, feed_dict={X: X_img, Y: Y_img})
     Xs_ = deprocess(Xs_)
     #result[:, img_size:2 * img_size] = Xs_[0]
     result=Xs_[0]
-    print(target_file_path)
+    #print(target_file_path)
+    result = result.astype(np.int8)
     imsave(target_file_path, result)
 
+
+sess.close()
