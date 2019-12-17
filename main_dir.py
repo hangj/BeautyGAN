@@ -34,9 +34,9 @@ batch_size = 1
 img_size = 256
 
 #所有上装的图片
-#makeups = glob.glob(os.path.join('imgs', 'makeup', '*.*'))
-#makeups.sort()
-#print(makeups)
+makeups = glob.glob(os.path.join('imgs', 'makeup', '*.*'))
+makeups.sort()
+print(makeups)
 
 #查找待上装图片
 all_no_makeups = glob.glob(os.path.join(args.src_dir,'*.*'))
@@ -70,9 +70,9 @@ X = graph.get_tensor_by_name('X:0')
 Y = graph.get_tensor_by_name('Y:0')
 Xs = graph.get_tensor_by_name('generator/xs:0')
 
-#makeup = cv2.resize(imread(makeups[args.makeup_num]), (img_size, img_size))
+makeup = cv2.resize(imread(makeups[args.makeup_num]), (img_size, img_size))
 
-makeup = cv2.resize(imread(os.path.join('img_0.jpg')), (img_size, img_size))
+#makeup = cv2.resize(imread(os.path.join('img_0.jpg')), (img_size, img_size))
 tq=tqdm(all_no_makeups)
 for no_makeup in tq:
     #print(no_makeup)
