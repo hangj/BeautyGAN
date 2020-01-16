@@ -98,5 +98,4 @@ for no_makeup in tq:
     imsave(target_file_path, result)
 
 
-
 sess.close()
