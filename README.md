@@ -38,4 +38,4 @@ python main.py
 python main.py --no_makeup xxx.xxx
 ```
 
-[My_Readme.md](变更)
+[变更](My_Readme.md)
